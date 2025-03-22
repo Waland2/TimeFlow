@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
 
 from src.models import Base
@@ -12,3 +12,4 @@ class User(Base):
     language: Mapped[str] = mapped_column(String(3), unique=True, default="eng")
     hashed_password: Mapped[str] = mapped_column(String, nullable=False)
 
+    cards: Mapped[list["Card"]] = relationship(back_populates="user")
