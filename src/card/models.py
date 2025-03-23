@@ -9,6 +9,7 @@ class Card(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(256))
     image: Mapped[str] = mapped_column(String(512), nullable=True)
+    is_active: Mapped[bool] = mapped_column(default=True)
 
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     user: Mapped["User"] = relationship(back_populates="cards")

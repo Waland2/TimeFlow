@@ -25,7 +25,7 @@ async def login(credentials: UserLogin, db: AsyncSession = Depends(get_db)):
 async def get_profile(current_user = Depends(get_current_user)):
     return current_user
 
-@auth_router.post("/language", response_model=UserOut)
+@auth_router.post("/change_language", response_model=UserOut)
 async def update_language(
     language_update: LanguageUpdate,
     db: AsyncSession = Depends(get_db),

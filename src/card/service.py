@@ -25,13 +25,14 @@ async def delete_card(card_id: int, db: AsyncSession, user: User) -> Card:
     if not card:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Card not found")
 
-    await db.delete(card)
+    card.is_active = False
     await db.commit()
+    await db.refresh(card)
     return card
 
 
 async def get_cards(db: AsyncSession, user: User) -> list[Card]: # TODO: should return only unique
-    result = await db.execute(select(Card).where(Card.user_id == user.id))
+    result = await db.execute(select(Card).where(Card.user_id == user.id, Card.is_active == True))
     cards = result.scalars().all()
     return list(cards)
 

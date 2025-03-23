@@ -5,8 +5,9 @@ from datetime import datetime, timedelta
 from src.auth.models import User
 from src.auth.schemas import UserCreate, UserLogin
 import jwt
-from src.config import ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY
 
+from src.card.models import Card
+from src.config import ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY, DEFAULT_CARDS
 
 async def create_user(db: AsyncSession, user_data: UserCreate) -> User:
     user = User(
@@ -15,6 +16,12 @@ async def create_user(db: AsyncSession, user_data: UserCreate) -> User:
         language=user_data.language
     )
     db.add(user)
+    await db.flush()
+
+    for card_data in DEFAULT_CARDS:
+        card = Card(**card_data, user_id=user.id)
+        db.add(card)
+
     await db.commit()
     await db.refresh(user)
     return user
