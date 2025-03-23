@@ -1,8 +1,16 @@
-DEBUG = True
+import os
 
-DATABASE_URL = "sqlite+aiosqlite:///./dev.db" # TODO: change to postgres or mysql
+DEBUG = os.getenv("DEBUG", "true").lower() == "true"
+DEV = os.getenv("DEV", "true").lower() == "true"
 
-SECRET_KEY = "super-secret-key"
+DATABASE_URL = ""
+
+if DEV:
+    DATABASE_URL = "sqlite+aiosqlite:///./dev.db"
+else:
+    DATABASE_URL = os.getenv("DATABASE_URL")
+
+SECRET_KEY = "super4f-secret-key"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 300000
 
