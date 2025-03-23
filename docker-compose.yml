@@ -6,7 +6,7 @@ services:
     container_name: fastapi_app
     restart: always
     env_file:
-      - .env
+      - .env.dev
     depends_on:
       - db
     networks:
