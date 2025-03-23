@@ -1,15 +1,11 @@
-from fastapi.params import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from passlib.hash import bcrypt
 from datetime import datetime, timedelta
-
-from src.auth.dependencies import get_current_user
 from src.auth.models import User
 from src.auth.schemas import UserCreate, UserLogin
 import jwt
 from src.config import ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY
-from src.database import get_db
 
 
 async def create_user(db: AsyncSession, user_data: UserCreate) -> User:

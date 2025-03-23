@@ -1,20 +1,25 @@
 from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
+
 from src.auth.models import User
 from src.card.models import Card
 from src.card.schemas import CardCreate
+from src.flow.models import Flow
 
 
-async def create_card(card_name: str, db: AsyncSession, user: User) -> Card:
+# TODO replace user: User to user_id: int
+
+async def create_card(card_name: str, db: AsyncSession, user: User) -> Card: # TODO: if card with this name alreay exist in users card - return error
     card = Card(name = card_name, user_id = user.id)
     db.add(card)
     await db.commit()
     await db.refresh(card)
     return card
 
-async def delete_card(card_name: str, db: AsyncSession, user: User) -> Card:
-    result = await db.execute(select(Card).where(Card.user_id == user.id, Card.name == card_name))
+async def delete_card(card_id: int, db: AsyncSession, user: User) -> Card:
+    result = await db.execute(select(Card).where(Card.user_id == user.id, Card.id == card_id))
     card = result.scalar()
 
     if not card:
@@ -30,3 +35,14 @@ async def get_cards(db: AsyncSession, user: User) -> list[Card]: # TODO: should 
     cards = result.scalars().all()
     return list(cards)
 
+
+async def get_active_card(db: AsyncSession, user: User):
+    result = await db.execute(
+        select(Flow)
+        .where(Flow.user_id == user.id, Flow.end.is_(None))
+        .options(selectinload(Flow.card))
+    )
+    active_flow = result.scalar_one_or_none()
+    if active_flow:
+        return active_flow.card
+    return None
