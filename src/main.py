@@ -4,11 +4,27 @@ from src.config import DEBUG, DEV
 from src.router import main_router
 from src.models import Base
 from src.database import engine
-
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(debug=DEBUG)
 app.include_router(main_router)
 
+
+# TODO: change this
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
