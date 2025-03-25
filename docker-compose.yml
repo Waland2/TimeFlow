@@ -11,7 +11,19 @@ services:
       - db
     networks:
       - backend
-
+    volumes:
+      - ./alembic:/app/alembic
+  # alembic:
+  #   build: .
+  #   container_name: alembic_migration
+  #   command: alembic upgrade head
+  #   restart: "no"
+  #   env_file:
+  #     - .env.dev
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - backend
   db:
     image: postgres:16-alpine
     container_name: postgres_db
