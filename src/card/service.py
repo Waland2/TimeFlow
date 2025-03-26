@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -28,6 +30,17 @@ async def delete_card(card_id: int, db: AsyncSession, user: User) -> Card:
     card.is_active = False
     await db.commit()
     await db.refresh(card)
+    return card
+
+async def edit_card(card_id: int, name: Optional[str], db: AsyncSession, user: User) -> Card:
+    result = await db.execute(select(Card).where(Card.user_id == user.id, Card.id == card_id))
+    card = result.scalar()
+
+    if name:
+        card.name = name
+        await db.commit()
+        await db.refresh(card)
+
     return card
 
 

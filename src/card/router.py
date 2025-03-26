@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.auth.dependencies import get_current_user
 from src.auth.models import User
 import src.card.service as service
-from src.card.schemas import CardCreate, CardOut, CardDelete
+from src.card.schemas import CardCreate, CardOut, CardDelete, CardEdit
 from src.database import get_db
 
 card_router = APIRouter()
@@ -15,10 +15,13 @@ async def create_card(card_info: CardCreate, db: AsyncSession = Depends(get_db),
     return await service.create_card(card_info.name, db, user)
 
 
-@card_router.post("/delete", response_model=CardOut) # TODO: when card delete what do with active flow
+@card_router.post("/delete", response_model=CardOut)
 async def delete_card(card_info: CardDelete, db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
     return await service.delete_card(card_info.id, db, user)
 
+@card_router.post("/edit", response_model=CardOut)
+async def edit_card(edit_info: CardEdit, db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
+    return await service.edit_card(edit_info.id, edit_info.name, db, user)
 
 @card_router.get("/get", response_model=list[CardOut])
 async def get_cards(db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
