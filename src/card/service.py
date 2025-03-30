@@ -13,7 +13,8 @@ from src.flow.models import Flow
 
 # TODO replace user: User to user_id: int
 
-async def create_card(card_name: str, db: AsyncSession, user: User) -> Card: # TODO: if card with this name alreay exist in users card - return error
+async def create_card(card_name: str, db: AsyncSession, user: User) -> Optional[Card]: # TODO: if card with this name alreay exist in users card - return error
+    if card_name.lower() == 'void': return None
     card = Card(name = card_name, user_id = user.id)
     db.add(card)
     await db.commit()

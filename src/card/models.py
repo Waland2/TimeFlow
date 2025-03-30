@@ -15,3 +15,7 @@ class Card(Base):
     user: Mapped["User"] = relationship(back_populates="cards")
 
     flows: Mapped["Flow"] = relationship(back_populates="card")
+
+
+    def __str__(self):
+        return self.name

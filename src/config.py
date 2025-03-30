@@ -10,7 +10,7 @@ if DEV:
 else:
     DATABASE_URL = os.getenv("DATABASE_URL")
 
-SECRET_KEY = "super4f-secret-key"
+SECRET_KEY = os.getenv("SECRET_KEY", "super-secret-key")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 300000
 

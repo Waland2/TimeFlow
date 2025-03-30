@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
 
+from src.card.models import Card
+from src.flow.models import Flow
 from src.models import Base
 
 class User(Base):
@@ -12,5 +14,11 @@ class User(Base):
     language: Mapped[str] = mapped_column(String(3), default="eng")
     hashed_password: Mapped[str] = mapped_column(nullable=False)
 
-    cards: Mapped[list["Card"]] = relationship(back_populates="user")
-    flows: Mapped[list["Flow"]] = relationship(back_populates="user")
+    cards: Mapped[list[Card]] = relationship(back_populates="user")
+    flows: Mapped[list[Flow]] = relationship(back_populates="user")
+
+    is_admin: Mapped[bool] = mapped_column(default=False)
+
+
+    def __str__(self):
+        return self.email

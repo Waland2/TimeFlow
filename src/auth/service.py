@@ -1,3 +1,5 @@
+from typing import Optional
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from passlib.hash import bcrypt
@@ -9,11 +11,11 @@ import jwt
 from src.card.models import Card
 from src.config import ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY, DEFAULT_CARDS
 
-async def create_user(db: AsyncSession, user_data: UserCreate) -> User:
+async def create_user(db: AsyncSession, email: str, password: str, language: Optional[str] = None) -> User:
     user = User(
-        email = user_data.email,
-        hashed_password=bcrypt.hash(user_data.password),
-        language=user_data.language
+        email = email,
+        hashed_password=bcrypt.hash(password),
+        language=language
     )
     db.add(user)
     await db.flush()
@@ -31,11 +33,11 @@ async def get_user_by_email(db: AsyncSession, email: str) -> User | None:
     result = await db.execute(select(User).where(User.email == email))
     return result.scalar_one_or_none()
 
-async def auth_user(db: AsyncSession, creds: UserLogin) -> str | None:
-    user = await get_user_by_email(db, creds.email)
+async def auth_user(db: AsyncSession, email: str, password: str) -> str | None:
+    user = await get_user_by_email(db, email)
     if not user:
         return None
-    if not bcrypt.verify(creds.password, user.hashed_password):
+    if not bcrypt.verify(password, user.hashed_password):
         return None
 
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)

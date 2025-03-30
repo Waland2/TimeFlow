@@ -16,6 +16,9 @@ class Flow(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     user: Mapped["User"] = relationship(back_populates="flows")
 
-    card_id: Mapped[int] = mapped_column(ForeignKey("cards.id"), nullable=True) # TODO: card delete -> should be null
+    card_id: Mapped[int] = mapped_column(ForeignKey("cards.id"), nullable=True)
     card: Mapped["Card"] = relationship(back_populates="flows")
+
+    def __str__(self):
+        return f"{self.card}_{self.user}"
 

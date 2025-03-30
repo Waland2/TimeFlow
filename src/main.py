@@ -1,16 +1,21 @@
-from fastapi import FastAPI
+# src/main.py
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from src.admin.admin import init_admin
 from src.config import DEBUG, DEV
 from src.router import main_router
 from src.models import Base
 from src.database import engine
-from fastapi.middleware.cors import CORSMiddleware
+
+
 
 app = FastAPI(debug=DEBUG)
 app.include_router(main_router)
 
+init_admin(app)
 
-# TODO: change this
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,7 +23,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.on_event("startup")
 async def startup():

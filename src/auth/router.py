@@ -8,15 +8,15 @@ from src.database import get_db
 auth_router = APIRouter()
 
 @auth_router.post("/register", response_model=UserOut)
-async def register(user: UserCreate, db: AsyncSession = Depends(get_db)):
-    existing_user = await service.get_user_by_email(db, str(user.email))
+async def register(user_info: UserCreate, db: AsyncSession = Depends(get_db)):
+    existing_user = await service.get_user_by_email(db, str(user_info.email))
     if existing_user:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
-    return await service.create_user(db, user)
+    return await service.create_user(db, user_info.email, user_info.password, user_info.language)
 
 @auth_router.post("/login", response_model=Token)
-async def login(credentials: UserLogin, db: AsyncSession = Depends(get_db)):
-    token = await service.auth_user(db, credentials)
+async def login(creds: UserLogin, db: AsyncSession = Depends(get_db)):
+    token = await service.auth_user(db, creds.email, creds.password)
     if not token:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password")
     return {"access_token": token, "token_type": "bearer"}
