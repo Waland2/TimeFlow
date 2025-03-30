@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String
+from sqlalchemy import String, text, Boolean
 
 from src.card.models import Card
 from src.flow.models import Flow
@@ -17,7 +17,7 @@ class User(Base):
     cards: Mapped[list[Card]] = relationship(back_populates="user")
     flows: Mapped[list[Flow]] = relationship(back_populates="user")
 
-    is_admin: Mapped[bool] = mapped_column(default=False)
+    is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
 
 
     def __str__(self):
