@@ -14,8 +14,14 @@ class User(Base):
     language: Mapped[str] = mapped_column(String(3), default="eng")
     hashed_password: Mapped[str] = mapped_column(nullable=False)
 
-    cards: Mapped[list[Card]] = relationship(back_populates="user")
-    flows: Mapped[list[Flow]] = relationship(back_populates="user")
+    cards: Mapped[list[Card]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+    flows: Mapped[list[Flow]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
 
     is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
 

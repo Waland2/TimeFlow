@@ -19,10 +19,7 @@ DEFAULT_CARDS = [
     {"name": "Work", "image": None},
     {"name": "Rest", "image": None},
     {"name": "Exercise", "image": None},
-    {"name": "Reading", "image": None},
-    {"name": "Cooking", "image": None},
-    {"name": "Music", "image": None},
-    {"name": "Travel", "image": None},
     {"name": "Socializing", "image": None},
     {"name": "Sleep", "image": None},
+    {"name": "Commute", "image": None}
 ]

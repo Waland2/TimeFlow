@@ -11,7 +11,7 @@ class Card(Base):
     image: Mapped[str] = mapped_column(String(512), nullable=True) # TODO
     is_active: Mapped[bool] = mapped_column(default=True)
 
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     user: Mapped["User"] = relationship(back_populates="cards")
 
     flows: Mapped["Flow"] = relationship(back_populates="card")
