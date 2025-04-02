@@ -13,12 +13,23 @@ class Flow(Base):
     start: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
     end: Mapped[datetime] = mapped_column(DateTime, nullable=True)
 
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     user: Mapped["User"] = relationship(back_populates="flows")
 
-    card_id: Mapped[int] = mapped_column(ForeignKey("cards.id"), nullable=True)
+    card_id: Mapped[int] = mapped_column(ForeignKey("cards.id", ondelete="CASCADE"), nullable=False)
     card: Mapped["Card"] = relationship(back_populates="flows")
 
     def __str__(self):
-        return f"{self.card}_{self.user}"
+        try:
+            card = self.card
+        except:
+            card = "DetachedCard"
+
+        try:
+            user = self.user
+        except:
+            user = "DetachedUser"
+
+        return f"{card}_{user}"
+
 

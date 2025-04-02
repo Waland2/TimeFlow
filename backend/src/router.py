@@ -9,4 +9,4 @@ api_v1_router.include_router(card_router, prefix="/card", tags=["Card"])
 api_v1_router.include_router(flow_router, prefix="/flow", tags=["Flow"])
 
 main_router = APIRouter()
-main_router.include_router(api_v1_router, prefix="/api/v1", tags=["API_v1"])
+main_router.include_router(api_v1_router, prefix="/v1", tags=["API_v1"])

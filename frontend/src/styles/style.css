@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Srbija-sans';
+    src: url('/fonts/srbija-sans.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+body, html {
+    width: 100%;
+    /* overflow-x: hidden; */
+}
+
+:root {
+    --main-font: "Roboto", sans-serif;
+    --logo-font: "Srbija-san", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    /* padding: 0 100px; */
+    font-family: var(--main-font);
+    /* padding-bottom: 100px; */
+}
+
+header {
+    padding: 0px 30px;
+    background-color: #a7d8fd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.no-select {
+    user-select: none;
+}
+
+.logo-and-nav {
+    display: flex;
+}
+
+.logo, .logo-m {
+    font-family: var(--logo-font);
+    color: #2D3142;
+    font-size: 40px;
+    margin-right: 10px;
+    font-weight: 800;
+    transition: .15s;
+}
+
+.logo:hover {
+    transition: .15s;
+    color: #1e202c;
+}
+
+.logo-m  {
+    display: none;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center
+}
+
+
+.nav-icon {
+    cursor: pointer;
+    padding: 15px;
+    font-size: 20px;
+    transition: .2s;
+}
+
+.nav-icon.active {
+    background-color: #2ea4ff;
+}
+
+
+.nav-icon:hover {
+    transition: .2s;
+    background-color: #62bafd;
+}
+
+.nav-icon.active:hover {
+    background-color: #2ea4ff;
+}
+
+
+
+
+.user-panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.login-btn {
+    cursor: pointer;
+    padding: 10px 25px;
+    font-size: 20px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 12.5px;
+    transition: .15s;
+    color: white;
+    background-color: #007BFF;
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+    transition: .15s;
+}
+
+.user-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.user-email {
+    font-weight: 500;
+}
+
+.logout-wrapper {
+    position: absolute;
+    top: 200%;
+    margin-top: 4px;
+    display: none;
+}
+
+.user-panel:hover .logout-wrapper {
+    display: block;
+}
+
+.logout-btn {
+    background: orange;
+    padding: 12px 24px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: red;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        display: none;
+    }
+
+    .logo-m {
+        display: block;
+    }
+
+    header {
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 440px) {
+
+    .logo-m {
+        display: none;
+    }
+
+    header {
+        padding: 8px 0;
+    }
+
+    .nav-icon {
+        cursor: pointer;
+        padding: 8px;
+        font-size: 15px;
+        transition: .2s;
+    }
+
+    .user-email {
+        font-weight: 400;
+        font-size: 15px;
+        width: 10px;
+        overflow: hidden;
+    }    
+
+    .user-panel {
+        padding-right: 5px;
+    }
+    
+    .login-btn {
+        padding: 5px 15px;
+    }
+
+    .logout-btn {
+        background: orange;
+        padding: 6px 12px;
+        border-radius: 6px;
+        white-space: nowrap;
+        transition: background 0.2s;
+    }
+
+}

@@ -1,8 +1,8 @@
 version: '3.9'
 
 services:
-  app:
-    build: .
+  backend:
+    build: ./backend
     container_name: fastapi_app
     restart: always
     env_file:
@@ -12,18 +12,17 @@ services:
     networks:
       - backend
     volumes:
-      - ./alembic:/app/alembic
-  # alembic:
-  #   build: .
-  #   container_name: alembic_migration
-  #   command: alembic upgrade head
-  #   restart: "no"
-  #   env_file:
-  #     - .env.dev
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - backend
+      - ./backend/alembic:/app/alembic
+  frontend:
+    build: ./frontend
+    container_name: nextjs_app
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - backend
+    # volumes:
+    #   - ./frontend:/app
   db:
     image: postgres:16-alpine
     container_name: postgres_db
@@ -49,7 +48,7 @@ services:
       - certbot-var:/var/lib/letsencrypt
       - certbot-www:/var/www/certbot
     depends_on:
-      - app
+      - backend
     networks:
       - backend
 
