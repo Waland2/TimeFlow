@@ -103,7 +103,7 @@ export default function AverageChartBar({ data }) {
                     type="number"
                     domain={[0, 100]}
                     tickCount={11}
-                    tickFormatter={(tick) => `${tick}%`}
+                    tickFormatter={(tick) => `${tick.toFixed(0)}%`}
                 />
                 <YAxis
                     type="category"

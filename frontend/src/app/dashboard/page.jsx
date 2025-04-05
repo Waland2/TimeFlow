@@ -24,8 +24,8 @@ export default function Dashboard() {
             .then((res) => {
                 const parsedFlows = res.data.map((flow) => ({
                     ...flow,
-                    start: new Date(flow.start + "Z"),
-                    end: flow.end ? new Date(flow.end + "Z") : new Date(), // TODO Fix
+                    start: new Date(flow.start),
+                    end: flow.end ? new Date(flow.end) : new Date(),
                 }));
 
                 setFlows(transformData(parsedFlows));
@@ -129,78 +129,6 @@ export default function Dashboard() {
             });
     }
     
-
-
-
-    // function transformData(data) {
-    //     const daysMap = {};
-
-    //     data.forEach(({ start, end, card }) => {
-    //         const startDate = new Date(start);
-    //         const endDate = new Date(end);
-    //         let current = new Date(startDate);
-
-
-    //         while (current < endDate) {
-    //             const dayStr = `${current.getFullYear()}-${String(current.getMonth() + 1).padStart(2, '0')}-${String(current.getDate()).padStart(2, '0')}`; 
-    //             const dayStart = new Date(current);
-    //             dayStart.setHours(0, 0, 0, 0);
-
-    //             const dayEnd = new Date(current);
-    //             dayEnd.setHours(24, 0, 0, 0);
-
-    //             const intervalStart = new Date(Math.max(current, dayStart));
-    //             const intervalEnd = new Date(Math.min(endDate, dayEnd));
-
-    //             const startHours = (intervalStart - dayStart) / 3600000;
-    //             const endHours = (intervalEnd - dayStart) / 3600000;
-
-    //             if (!daysMap[dayStr]) {
-    //                 daysMap[dayStr] = [];
-    //             }
-
-    //             daysMap[dayStr].push({
-    //                 start: startHours,
-    //                 end: endHours,
-    //                 name: card.name,
-    //             });
-
-    //             current = dayEnd;
-    //         }
-    //     });
-
-    //     return Object.keys(daysMap)
-    //         .sort()
-    //         .map(day => {
-    //             const intervals = daysMap[day].sort((a, b) => a.start - b.start);
-
-    //             const result = [];
-
-    //             if (intervals[0].start > 0) {
-    //                 result.push({
-    //                     start: 0,
-    //                     end: intervals[0].start,
-    //                     name: 'Void',
-    //                 });
-    //             }
-
-    //             result.push(...intervals);
-
-    //             const last = intervals[intervals.length - 1];
-    //             if (last.end < 24) {
-    //                 result.push({
-    //                     start: last.end,
-    //                     end: 24,
-    //                     name: 'Void',
-    //                 });
-    //             }
-
-    //             return {
-    //                 day,
-    //                 intervals: result,
-    //             };
-    //         });
-    // }
 
     return (
         <div className='activity-chart'>
