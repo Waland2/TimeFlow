@@ -14,7 +14,7 @@ card_router = APIRouter()
 async def create_card(card_info: CardCreate, db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
     created_card = await service.create_card(card_info.name, db, user)
     if not created_card:
-        raise HTTPException(400, detail="A card with this name cannot be created")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="A card with this name cannot be created")
 
     return created_card
 
