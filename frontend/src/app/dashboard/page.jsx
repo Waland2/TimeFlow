@@ -24,8 +24,8 @@ export default function Dashboard() {
             .then((res) => {
                 const parsedFlows = res.data.map((flow) => ({
                     ...flow,
-                    start: new Date(flow.start),
-                    end: flow.end ? new Date(flow.end) : new Date(),
+                    start: new Date(flow.start + "Z"),
+                    end: flow.end ? new Date(flow.end + "Z") : new Date(),
                 }));
 
                 setFlows(transformData(parsedFlows));
