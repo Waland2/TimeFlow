@@ -7,7 +7,6 @@ from sqlalchemy.orm import selectinload
 
 from src.auth.models import User
 from src.card.models import Card
-from src.card.schemas import CardCreate
 from src.flow.models import Flow
 
 
