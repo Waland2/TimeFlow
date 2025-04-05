@@ -125,7 +125,7 @@ export default function Cards() {
             {!isEditing && (
               <div className='info-block'>
                 <span className='now-info'>
-                  Now active: {activeCard ? activeCard.name : 'Nothing'}
+                  {activeCard ? `Now active: ${activeCard.name}`: 'Click to any card to start time flow!'}
                 </span>
               </div>
             )}

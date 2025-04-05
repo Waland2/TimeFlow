@@ -17,6 +17,7 @@
 body, html {
     width: 100%;
     /* overflow-x: hidden; */
+    background-color: #f8f9fa;
 }
 
 :root {
@@ -169,17 +170,19 @@ header {
 
 @media (max-width: 440px) {
 
+
     .logo-m {
         display: none;
     }
 
     header {
         padding: 8px 0;
+        padding-bottom: 16px;
     }
 
     .nav-icon {
         cursor: pointer;
-        padding: 8px;
+        padding: 16px;
         font-size: 15px;
         transition: .2s;
     }

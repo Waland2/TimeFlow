@@ -16,7 +16,7 @@ const MyLabelList = (props) => {
             fontWeight={400}
         >
             
-            {(value >= 1 && value != 24)  ? `${Number(value.toFixed(1))}h` : ""}
+            {(value >= 0.5 && value != 24)  ? `${Number(value.toFixed(1))}h` : ""}
         </text>
     );
 };

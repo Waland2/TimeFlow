@@ -22,8 +22,11 @@ export function UserProvider({ children }) {
         .catch(() => {
           setIsLoading(false);
 
-          return setUser(null) 
+          return setUser(null)
         });
+    } else {
+      setUser(null);
+      setIsLoading(false);
     }
   }, []);
 

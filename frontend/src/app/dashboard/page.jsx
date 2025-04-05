@@ -18,6 +18,7 @@ export default function Dashboard() {
     const { user, isLoading } = useUser();
 
     useEffect(() => {
+        console.log(user, isLoading)
         if (!isLoading && !user) { router.push("/auth/login") }
         api.get("flow/get")
             .then((res) => {
@@ -31,7 +32,7 @@ export default function Dashboard() {
                 console.log(parsedFlows);
                 console.log(transformData(parsedFlows));
             });
-    }, []);
+    }, [isLoading]);
 
 
     function transformData(data) {

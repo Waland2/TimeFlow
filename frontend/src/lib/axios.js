@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const api = axios.create({
-  baseURL: "https://timeflow.space/api/v1",
+  baseURL: "https://api.timeflow.space/api/v1",
 });
 
 api.interceptors.request.use((config) => {

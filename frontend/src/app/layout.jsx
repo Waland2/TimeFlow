@@ -5,6 +5,13 @@ import '@/styles/style.css'
 import { UserProvider } from '@/context/UserContext';
 import Header from "@/components/Header"
 
+export const metadata = {
+  title: "TimeFlow",
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
+
 export default async function LocaleLayout({ children }) {
 
   return (

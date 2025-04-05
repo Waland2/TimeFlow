@@ -1,8 +1,8 @@
 
 const niceColors = [
+    "#ec5a5c",
     "#5b8bd1",
     "#f89c3d",
-    "#ec5a5c",
     "#84cbc7",
     "#66b55a",
     "#f2d44f",
