@@ -155,7 +155,7 @@ export default function Cards() {
             <div className='card-action-block'>
               {isEditing ? (
                 <button
-                  className='edit-cards-btn'
+                  className='edit-btn'
                   onClick={() => setIsEditing(false)}
                 >
                   Finish editing
@@ -163,13 +163,13 @@ export default function Cards() {
               ) : (
                 <>
                   <button
-                    className='edit-cards-btn'
+                    className='edit-btn'
                     onClick={() => setIsEditing(true)}
                   >
                     Edit cards
                   </button>
                   <button
-                    className='create-card-btn'
+                    className='add-btn'
                     onClick={() => {
                       setCardToEdit(null);
                       setNewCardName("");

@@ -10,7 +10,7 @@ export async function login(email, password) {
     const token = res.data.access_token;
 
     Cookies.set('access_token', token, {
-        expires: 90, // TODO change
+        expires: 90, 
         secure: true,
         sameSite: 'Lax',
     });
