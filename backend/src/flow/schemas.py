@@ -16,3 +16,8 @@ class FlowOut(BaseModel):
 
     class Config:
         orm_mode = True
+
+class FlowEdit(BaseModel):
+    card_id: int
+    start: datetime
+    end: datetime
