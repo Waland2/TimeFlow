@@ -71,6 +71,23 @@ async def edit_flow(
     )
     flow_start_only = flow_start_only_result.scalar_one_or_none()
 
+    flow_to_divide_result = await db.execute(
+        select(Flow).where(
+            Flow.user_id == user_id,
+            Flow.start < start_time,
+            or_(Flow.end > end_time,
+                Flow.end == None)
+        )
+    )
+    flow_to_divide = flow_to_divide_result.scalar_one_or_none()
+
+    # print("-------------------------------------------------------------------------------------")
+    # print(flows_start_end)
+    # print(flow_start_only)
+    # print(flow_end_only)
+    # print(flow_to_divide)
+    # print("-------------------------------------------------------------------------------------")
+
     for flow in flows_start_end:
         await db.delete(flow)
 
@@ -79,6 +96,11 @@ async def edit_flow(
 
     if flow_end_only:
         flow_end_only.end = start_time
+
+    if flow_to_divide:
+        ftd_new = Flow(card_id=flow_to_divide.card_id, user_id=user_id, start=end_time, end=flow_to_divide.end)
+        flow_to_divide.end = start_time
+        db.add(ftd_new)
 
     new_flow = Flow(card_id=card_id, user_id=user_id, start=start_time, end=end_time)
 
