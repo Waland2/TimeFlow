@@ -24,3 +24,14 @@ class Token(BaseModel):
 
 class LanguageUpdate(BaseModel):
     new_language: str
+
+class EmailConfirmation(BaseModel):
+    token: str
+    new_password: str
+
+class PasswordResetRequest(BaseModel):
+    email: str
+
+class PasswordReset(BaseModel):
+    token: str
+    new_password: str

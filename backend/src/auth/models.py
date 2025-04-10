@@ -23,6 +23,7 @@ class User(Base):
         cascade="all, delete-orphan",
     )
 
+    is_verified: Mapped[bool] = mapped_column(Boolean, default=False)
     is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
 
 

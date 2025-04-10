@@ -6,7 +6,7 @@ from src.flow.models import Flow
 
 
 class UserAdmin(ModelView, model=User):
-    column_list = [User.id, User.username, User.email, User.language, User.is_admin]
+    column_list = [User.id, User.username, User.email, User.language, User.is_verified, User.is_admin]
     name = "User"
     name_plural = "Users"
 

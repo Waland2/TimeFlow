@@ -1,8 +1,11 @@
+import jwt
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.auth.schemas import UserCreate, UserOut, UserLogin, Token, LanguageUpdate
+from src.auth.schemas import UserCreate, UserOut, UserLogin, Token, LanguageUpdate, PasswordReset, EmailConfirmation, \
+    PasswordResetRequest
 import src.auth.service as service
 from src.auth.dependencies import get_current_user
+from src.config import SECRET_KEY
 from src.database import get_db
 
 auth_router = APIRouter()
@@ -35,3 +38,25 @@ async def update_language(
     current_user = Depends(get_current_user)
 ):
     return await service.change_language(new_language=language_update.new_language, db=db, user=current_user)
+
+@auth_router.post("/change_language", response_model=UserOut)
+async def update_language(
+    language_update: LanguageUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    return await service.change_language(new_language=language_update.new_language, db=db, user=current_user)
+
+
+@auth_router.post("/confirm-email", response_model=UserOut)
+async def confirm_email(data: EmailConfirmation, db: AsyncSession = Depends(get_db)):
+    return await service.confirm_email(data.token, db)
+
+@auth_router.post("/start-password-reset")
+async def confirm_email(data: PasswordResetRequest, db: AsyncSession):
+    await service.start_password_reset(data.email, db)
+    return {"status" : "ok"}
+
+@auth_router.post("/password-reset", response_model=UserOut)
+async def confirm_email(data: PasswordReset, db: AsyncSession = Depends(get_db)):
+    return await service.reset_password(data.token, data.new_password, db)
