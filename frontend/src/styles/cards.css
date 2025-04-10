@@ -5,6 +5,7 @@
     font-size: 27px;
     font-weight: 600;
     font-family: var(--logo-font);
+    text-align: center;
 }
 
 .card-block {

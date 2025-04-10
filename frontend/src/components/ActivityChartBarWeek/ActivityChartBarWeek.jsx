@@ -63,6 +63,7 @@ export default function ActivityChartBarWeek({ data }) {
                     tickFormatter={(value) => `${value}h`}
                 />
                 <YAxis
+                    width={40}
                     dataKey="day"
                     type="category"
                     tickFormatter={(value) => {

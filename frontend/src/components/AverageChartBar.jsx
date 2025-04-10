@@ -96,19 +96,21 @@ export default function AverageChartBar({ data }) {
             <BarChart
                 data={transformed}
                 layout="vertical"
-                margin={{ top: 20, right: 30, bottom: 20, left: 0 }}
+                margin={{ top: 20, right: 5, bottom: 20, left: 0 }}
                 barCategoryGap={0}
             >
                 <XAxis
                     type="number"
                     domain={[0, 100]}
-                    tickCount={11}
+                    ticks={[0, 20, 40,  60, 80, 100]}
                     tickFormatter={(tick) => `${tick.toFixed(0)}%`}
+                    tick={{fontSize: 12}}
                 />
                 <YAxis
                     type="category"
                     dataKey="name"
                     tick={{ fontSize: 14 }}
+                    width={40}
                 />
 
                 <Tooltip content={<CustomTooltip />} />
