@@ -73,7 +73,7 @@ export default function LoginPage() {
                     Don't have an account? <Link href="/auth/register">Register</Link>
                 </div>
                 <div className="login-link">
-                    Forgot password? <Link href="/auth/reset-password">Reset it</Link>
+                    Forgot password? <Link href="/auth/start-reset">Reset it</Link>
                 </div>
             </form>
         </div>

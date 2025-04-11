@@ -1,5 +1,7 @@
 from email.message import EmailMessage
-from aiosmtplib import SMTP
+from email.utils import formataddr
+
+from aiosmtplib import SMTP, SMTPException
 from src.config import SMTP_USER, SMTP_PORT, SMTP_PASS, SMTP_HOST, FRONT_DOMAIN
 
 
@@ -20,8 +22,8 @@ def build_email_body(title: str, description: str, button_text: str, link: str) 
     return plain_text, html
 
 
-async def send_confirm_mail(to: str, token: str):
-    link = f"https://{FRONT_DOMAIN}/confirm-email?token={token}"
+async def send_confirm_mail(to: str, token: str) -> bool:
+    link = f"https://{FRONT_DOMAIN}/auth/confirm?token={token}"
     text, html = build_email_body(
         title="Please confirm your email",
         description="Click the button below to verify your email address and complete your registration.",
@@ -30,19 +32,28 @@ async def send_confirm_mail(to: str, token: str):
     )
 
     message = EmailMessage()
-    message["From"] = SMTP_USER
+    message["From"] = formataddr(("TimeFlow", SMTP_USER))
     message["To"] = to
     message["Subject"] = "Confirm your email"
     message.set_content(text)
     message.add_alternative(html, subtype="html")
 
-    async with SMTP(hostname=SMTP_HOST, port=SMTP_PORT, use_tls=True) as smtp:
-        await smtp.login(SMTP_USER, SMTP_PASS)
-        await smtp.send_message(message)
+    try:
+        async with SMTP(hostname=SMTP_HOST, port=SMTP_PORT, use_tls=True) as smtp:
+            await smtp.login(SMTP_USER, SMTP_PASS)
+            await smtp.send_message(message)
+            return True
+    except SMTPException as e:
+        print(f"SMTP error when sending email to {to}: {e}")
+        return False
+    except Exception as e:
+        print(f"Unexpected error when sending email to {to}: {e}")
+        return False
+
 
 
 async def send_password_reset_mail(to: str, token: str):
-    link = f"https://{FRONT_DOMAIN}/reset-password?token={token}"
+    link = f"https://{FRONT_DOMAIN}/auth/reset?token={token}"
     text, html = build_email_body(
         title="Reset your password",
         description="Forgot your password? Click the button below to set a new one.",
@@ -51,7 +62,7 @@ async def send_password_reset_mail(to: str, token: str):
     )
 
     message = EmailMessage()
-    message["From"] = SMTP_USER
+    message["From"] = formataddr(("TimeFlow", SMTP_USER))
     message["To"] = to
     message["Subject"] = "Reset your password"
     message.set_content(text)

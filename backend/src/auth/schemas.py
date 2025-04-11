@@ -27,7 +27,6 @@ class LanguageUpdate(BaseModel):
 
 class EmailConfirmation(BaseModel):
     token: str
-    new_password: str
 
 class PasswordResetRequest(BaseModel):
     email: str

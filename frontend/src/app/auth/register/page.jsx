@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { register } from '@/utils/auth';
 import '@/styles/auth.css';
-import Link from 'next/link'
+import Link from 'next/link';
 import { useUser } from '@/context/UserContext';
 
 export default function RegistrationPage() {
@@ -15,29 +15,37 @@ export default function RegistrationPage() {
   const [error, setError] = useState('');
   const { user, setUser } = useUser();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (user) {
-      router.push("/cards")
+      router.push("/cards");
     }
-  }, [user])
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
+
+    setError('');
+    setIsLoading(true);
+
     try {
       const res = await register(email, password);
       setUser(res);
       router.push('/cards');
-    }
-    catch (err) {
+    } catch (err) {
       if (err.response && err.response.data && err.response.data.detail) {
         setError(err.response.data.detail);
       } else {
         setError('Registration error. Please try again.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -45,7 +53,6 @@ export default function RegistrationPage() {
     <div className="form-container">
       <h2>Registration</h2>
       <form onSubmit={handleSubmit}>
-
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -56,6 +63,7 @@ export default function RegistrationPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={isLoading} 
           />
         </div>
 
@@ -69,6 +77,7 @@ export default function RegistrationPage() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            disabled={isLoading} 
           />
         </div>
 
@@ -82,10 +91,14 @@ export default function RegistrationPage() {
             required
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            disabled={isLoading}
           />
         </div>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Processing...' : 'Sign Up'}
+        </button>
+
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
         <div className="login-link">

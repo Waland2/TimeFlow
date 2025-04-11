@@ -39,21 +39,13 @@ async def update_language(
 ):
     return await service.change_language(new_language=language_update.new_language, db=db, user=current_user)
 
-@auth_router.post("/change_language", response_model=UserOut)
-async def update_language(
-    language_update: LanguageUpdate,
-    db: AsyncSession = Depends(get_db),
-    current_user = Depends(get_current_user)
-):
-    return await service.change_language(new_language=language_update.new_language, db=db, user=current_user)
-
 
 @auth_router.post("/confirm-email", response_model=UserOut)
 async def confirm_email(data: EmailConfirmation, db: AsyncSession = Depends(get_db)):
     return await service.confirm_email(data.token, db)
 
 @auth_router.post("/start-password-reset")
-async def confirm_email(data: PasswordResetRequest, db: AsyncSession):
+async def confirm_email(data: PasswordResetRequest, db: AsyncSession = Depends(get_db)):
     await service.start_password_reset(data.email, db)
     return {"status" : "ok"}
 
