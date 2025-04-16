@@ -1,8 +1,8 @@
 
 const niceColors = [
-    "#ec5a5c",
     "#5b8bd1",
     "#f89c3d",
+    "#ec5a5c",
     "#84cbc7",
     "#66b55a",
     "#f2d44f",
@@ -137,16 +137,18 @@ export function getCategoryColorMap(data) {
     const sortedData = getSortedData(data);
     const colorMap = {};
 
-    sortedData.forEach((item, i) => {
-        const name = item.name;
-        if (name === 'Void') {
-            colorMap[name] = 'transparent';
-        } else {
-            colorMap[name] = i < niceColors.length
-                ? niceColors[i]
-                : fallbackColor(name);
-        }
+    const filteredData = sortedData.filter(item => item.name !== 'Void');
+
+    filteredData.forEach((item, i) => {
+        colorMap[item.name] = i < niceColors.length
+            ? niceColors[i]
+            : fallbackColor(item.name);
     });
+
+    const voidItem = sortedData.find(item => item.name === 'Void');
+    if (voidItem) {
+        colorMap['Void'] = 'transparent';
+    }
 
     return colorMap;
 }
