@@ -123,7 +123,7 @@ export default function Cards() {
         ) : (
           <>
             {!isEditing && (
-              <div className='info-block'>
+              <div className='active-card-info'>
                 <span className='now-info'>
                   {activeCard ? `Now active: ${activeCard.name}`: 'Click to any card to start time flow!'}
                 </span>
