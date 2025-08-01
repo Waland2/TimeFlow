@@ -12,7 +12,7 @@ import jwt
 
 from src.auth.schemas import EmailConfirmation
 from src.card.models import Card
-from src.config import ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY, DEFAULT_CARDS
+from src.config import ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, EMAILS_ENABLED, SECRET_KEY, DEFAULT_CARDS
 from datetime import datetime, timedelta
 
 from src.mail.service import send_confirm_mail, send_password_reset_mail
@@ -35,13 +35,15 @@ async def create_user(db: AsyncSession, email: str, password: str, language: Opt
         card = Card(**card_data, user_id=user.id)
         db.add(card)
         
-    confirm_email_token =  jwt.encode({
-        "sub": email,
-        "exp": datetime.utcnow() + timedelta(hours=256)
-    }, SECRET_KEY, algorithm="HS256")
 
-    if not await send_confirm_mail(email, confirm_email_token):
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid email address")
+    if EMAILS_ENABLED:
+        confirm_email_token =  jwt.encode({
+            "sub": email,
+            "exp": datetime.utcnow() + timedelta(hours=256)
+        }, SECRET_KEY, algorithm="HS256")
+
+        if not await send_confirm_mail(email, confirm_email_token):
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid email address")
 
     await db.flush()
     await db.commit()
