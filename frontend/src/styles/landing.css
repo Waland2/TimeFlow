@@ -1,29 +1,31 @@
+html {
+    background: #f3f4f6;
+    
+}
 body {
+    background: #f3f4f6;
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: #f3f4f6;
     color: #111;
 }
 
-/* Блок для кнопки */
 .cta {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;         /* побольше отступ сверху */
-    margin-bottom: 3rem;      /* и снизу */
+    margin-top: 3rem;        
+    margin-bottom: 3rem;     
 }
 
-/* Стили самой кнопки */
 .cta a {
-    padding: 1.2rem 2.4rem;   /* немного увеличим размер */
+    padding: 1.2rem 2.4rem;   
     background: #4a90e2;
     color: white;
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.1rem;        /* чуть больше размер шрифта */
-    transition: background 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* лёгкая тень */
+    font-size: 1.1rem;      
+    transition: background 0.3s, box-shadow 0.15s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
 }
 
 .cta a:hover {
@@ -31,7 +33,6 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* --- Остальные стили без изменений --- */
 .features {
     max-width: 1000px;
     margin: 4rem auto;
@@ -53,9 +54,14 @@ body {
     margin-bottom: 1rem;
 }
 
+.feature p {
+    font-size: 20px;
+    font-weight: 500;
+}
+
 .screenshots-block {
-    background: #e9f4ff;
-    padding: 4rem 1rem;
+    /* background: #e9f4ff; */
+    padding: 1rem 1rem;
     text-align: center;
 }
 

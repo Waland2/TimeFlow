@@ -8,17 +8,10 @@ export default function Home() {
     <main>
       <section className="features">
         <div className="feature">
-          <h3>🎯 Activity Control</h3>
-          <p>Create cards and mark what you’re doing with just one click.</p>
+          {/* <h3>🎯 Activity Control</h3> */}
+          <p>Track what you’re doing with one click. Add your own activities, edit cards the way you like, and see everything clearly with simple, clean charts.</p>
         </div>
-        <div className="feature">
-          <h3>📊 Time Visualization</h3>
-          <p>Charts. Everything is clear, beautiful, and easy to understand.</p>
-        </div>
-        <div className="feature">
-          <h3>🎨 Personalize</h3>
-          <p>Add your own activities and edit cards to suit your needs.</p>
-        </div>
+
       </section>
 
       <section className="screenshots-block">
