@@ -5,7 +5,7 @@ A website for tracking your time
 
 
 ## Installation
-```bash
+```
 1) git clone https://github.com/Waland2/TimeFlow.git
 2) edit .env files
 3) pick .env file in docker-compose.yml
@@ -26,5 +26,5 @@ A website for tracking your time
 
 
 ## Screenshots
-![Card selcter](./frontend/public/images/card-selecter-example-1.png)
+![Card selecter](./frontend/public/images/card-selecter-example-1.png)
 ![Dashboard](./frontend/public/images/dashboard-example-1.png)
