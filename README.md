@@ -10,8 +10,9 @@ A website for tracking your time
 2) edit .env files
 3) pick .env file in docker-compose.yml
 4) edit nginx/default.conf
-5) docker compose build
-6) docker compose up -d
+5) edit frontend/src/config.js
+6) docker compose build
+7) docker compose up -d
 ```
     
 ## Tech Stack
