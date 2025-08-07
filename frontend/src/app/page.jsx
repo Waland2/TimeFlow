@@ -8,7 +8,6 @@ export default function Home() {
     <main>
       <section className="features">
         <div className="feature">
-          {/* <h3>🎯 Activity Control</h3> */}
           <p>Track what you’re doing with one click. Add your own activities, edit cards the way you like, and see everything clearly with simple, clean charts.</p>
         </div>
 
@@ -29,7 +28,7 @@ export default function Home() {
       </div>
 
       <footer>
-        © 2025 TimeFlow. Created with care for your time.
+        © 2025 TimeFlow. 
       </footer>
     </main>
   );

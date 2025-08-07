@@ -144,6 +144,7 @@ header {
     display: none;
     background: rgb(61, 61, 61);
     width: 100%;
+    min-width: 200px;
     padding: 10px 0px;
     border: black 2px solid;
     border-radius: 3px;
