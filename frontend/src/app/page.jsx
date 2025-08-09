@@ -16,7 +16,7 @@ export default function Home() {
       <section className="screenshots-block">
         <h2>How it looks</h2>
         <section className="screenshots">
-          <img src="/images/card-selecter-example-1.png" alt="Card selector UI" />
+          <img src="/images/card-selecter-example-2.png" alt="Card selector UI" />
           <img src="/images/dashboard-example-1.png" alt="Dashboard UI" />
         </section>
       </section>
