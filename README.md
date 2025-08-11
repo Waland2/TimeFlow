@@ -49,9 +49,9 @@ docker compose run --rm certbot certonly --webroot \
 docker compose restart nginx
 ```
 
-### Certificate auto renew
+### Certificate renew
 ```bash
-0 3 * * * docker compose run --rm certbot renew --webroot -w /var/www/certbot --quiet && docker kill -s HUP nginx_proxy
+docker compose run --rm certbot renew --webroot -w /var/www/certbot --quiet && docker kill -s HUP nginx_proxy
 ```
 
 ## License
